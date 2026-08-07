@@ -6,12 +6,10 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * <p>
- * 支付订单
- * </p>
+ * 支付单
  */
 @Data
-@Schema(description = "支付单vo实体")
+@Schema(description = "支付单视图")
 public class PayOrderVO {
     @Schema(description = "id")
     private Long id;
@@ -25,9 +23,9 @@ public class PayOrderVO {
     private String payChannelCode;
     @Schema(description = "支付金额，单位分")
     private Integer amount;
-    @Schema(description = "付类型，1：h5,2:小程序，3：公众号，4：扫码，5：余额支付")
+    @Schema(description = "支付类型，1：h5,2:小程序，3：公众号，4：扫码，5：余额支付")
     private Integer payType;
-    @Schema(description = "付状态，0：待提交，1:待支付，2：支付超时或取消，3：支付成功")
+    @Schema(description = "支付状态，0：待提交，1:待支付，2：支付超时或取消，3：支付成功")
     private Integer status;
     @Schema(description = "拓展字段，用于传递不同渠道单独处理的字段")
     private String expandJson;

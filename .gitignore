@@ -31,3 +31,6 @@ hmall-nginx/temp/
 *.tmp
 *.swp
 *~
+
+# 本地文档（不追踪）
+docs/

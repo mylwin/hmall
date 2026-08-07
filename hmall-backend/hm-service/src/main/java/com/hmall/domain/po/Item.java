@@ -12,12 +12,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * <p>
- * 商品表
- * </p>
- *
- * @author 虎哥
- * @since 2023-05-05
+ * 商品
+ * <p>对应数据库表 {@code item}，保存商品名称、价格、库存、规格等信息。</p>
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -108,6 +104,4 @@ public class Item implements Serializable {
      * 修改人
      */
     private Long updater;
-
-
 }

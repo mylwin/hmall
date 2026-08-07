@@ -4,6 +4,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+/**
+ * 订单明细条目
+ */
 @Schema(description = "订单明细条目")
 @Data
 @Accessors(chain = true)

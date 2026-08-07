@@ -25,12 +25,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * <p>
- * 服务实现类
- * </p>
- *
- * @author 虎哥
- * @since 2023-05-05
+ * 订单管理模块实现类
  */
 @Service
 @RequiredArgsConstructor
@@ -40,6 +35,11 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private final IOrderDetailService detailService;
     private final ICartService cartService;
 
+    /**
+     * 创建订单
+     * @param orderFormDTO 订单信息
+     * @return 订单编号
+     */
     @Override
     @Transactional
     public Long createOrder(OrderFormDTO orderFormDTO) {
@@ -85,6 +85,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         return order.getId();
     }
 
+    /**
+     * 标记订单已支付
+     * @param orderId 订单编号
+     */
     @Override
     public void markOrderPaySuccess(Long orderId) {
         Order order = new Order();
@@ -94,6 +98,13 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         updateById(order);
     }
 
+    /**
+     * 构建订单详情
+     * @param orderId 订单编号
+     * @param items 商品信息
+     * @param numMap 商品数量
+     * @return 订单详情
+     */
     private List<OrderDetail> buildDetails(Long orderId, List<ItemDTO> items, Map<Long, Integer> numMap) {
         List<OrderDetail> details = new ArrayList<>(items.size());
         for (ItemDTO item : items) {

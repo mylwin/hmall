@@ -11,12 +11,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * <p>
- * 
- * </p>
- *
- * @author 虎哥
- * @since 2023-05-05
+ * 订单
+ * <p>对应数据库表 {@code order}，保存订单金额、支付类型、状态及各关键时间节点。</p>
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -26,6 +22,9 @@ public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 订单id
+     */
     /**
      * 订单id
      */
@@ -86,6 +85,4 @@ public class Order implements Serializable {
      * 更新时间
      */
     private LocalDateTime updateTime;
-
-
 }

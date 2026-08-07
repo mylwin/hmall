@@ -3,6 +3,9 @@ package com.hmall.domain.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+/**
+ * 新增购物车商品表单
+ */
 @Data
 @Schema(description = "新增购物车商品表单实体")
 public class CartFormDTO {

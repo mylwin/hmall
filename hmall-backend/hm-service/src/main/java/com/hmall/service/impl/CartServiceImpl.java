@@ -26,12 +26,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * <p>
- * 订单详情表 服务实现类
- * </p>
- *
- * @author 虎哥
- * @since 2023-05-05
+ * 购物车 服务实现类
  */
 @Service
 @RequiredArgsConstructor
@@ -39,6 +34,10 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
 
     private final IItemService itemService;
 
+    /**
+     * 添加商品到购物车
+     * @param cartFormDTO 购物车表单DTO
+     */
     @Override
     public void addItem2Cart(CartFormDTO cartFormDTO) {
         // 1.获取登录用户
@@ -62,6 +61,9 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
         save(cart);
     }
 
+    /**
+     * 查询我的购物车列表
+     */
     @Override
     public List<CartVO> queryMyCarts() {
         // 1.查询我的购物车列表
@@ -80,6 +82,10 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
         return vos;
     }
 
+    /**
+     * 处理购物车中的商品信息
+     * @param vos 购物车VO列表
+     */
     private void handleCartItems(List<CartVO> vos) {
         // 1.获取商品id
         Set<Long> itemIds = vos.stream().map(CartVO::getItemId).collect(Collectors.toSet());
@@ -102,6 +108,10 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
         }
     }
 
+    /**
+     * 根据商品id删除购物车条目
+     * @param itemIds 商品id集合
+     */
     @Override
     public void removeByItemIds(Collection<Long> itemIds) {
         // 1.构建删除条件，userId和itemId
@@ -113,6 +123,10 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
         remove(queryWrapper);
     }
 
+    /**
+     * 检查购物车是否已满
+     * @param userId 用户id
+     */
     private void checkCartsFull(Long userId) {
         long count = lambdaQuery().eq(Cart::getUserId, userId).count();
         if (count >= 10) {
@@ -120,6 +134,12 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
         }
     }
 
+    /**
+     * 检查购物车中是否已经存在该商品
+     * @param itemId 商品id
+     * @param userId 用户id
+     * @return 是否存在，true表示存在，false表示不存在
+     */
     private boolean checkItemExists(Long itemId, Long userId) {
         long count = lambdaQuery()
                 .eq(Cart::getUserId, userId)

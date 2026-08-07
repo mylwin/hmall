@@ -3,6 +3,9 @@ package com.hmall.domain.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+/**
+ * 商品
+ */
 @Data
 @Schema(description = "商品实体")
 public class ItemDTO {

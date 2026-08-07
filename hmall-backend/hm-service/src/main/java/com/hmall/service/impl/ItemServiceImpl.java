@@ -14,15 +14,14 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * <p>
- * 商品表 服务实现类
- * </p>
- *
- * @author 虎哥
+ * 商品 服务实现类
  */
 @Service
 public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements IItemService {
-
+    /**
+     * 扣减库存
+     * @param items 订单详情列表
+     */
     @Override
     public void deductStock(List<OrderDetailDTO> items) {
         String sqlStatement = "com.hmall.mapper.ItemMapper.updateStock";
@@ -37,6 +36,11 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
         }
     }
 
+    /**
+     * 根据id列表查询商品列表
+     * @param ids id列表
+     * @return 商品列表
+     */
     @Override
     public List<ItemDTO> queryItemByIds(Collection<Long> ids) {
         return BeanUtils.copyList(listByIds(ids), ItemDTO.class);

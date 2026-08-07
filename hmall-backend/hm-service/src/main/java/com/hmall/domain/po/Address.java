@@ -9,13 +9,10 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
+
 /**
- * <p>
- * 
- * </p>
- *
- * @author 虎哥
- * @since 2023-05-05
+ * 收货地址
+ * <p>对应数据库表 {@code address}，保存用户收货地址信息。</p>
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -25,6 +22,9 @@ public class Address implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 地址id
+     */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
@@ -72,6 +72,4 @@ public class Address implements Serializable {
      * 备注
      */
     private String notes;
-
-
 }

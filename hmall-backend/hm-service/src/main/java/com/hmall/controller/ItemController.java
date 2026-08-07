@@ -24,6 +24,11 @@ public class ItemController {
 
     private final IItemService itemService;
 
+    /**
+     * 分页查询商品
+     * @param query 分页查询参数
+     * @return 分页查询结果
+     */
     @Operation(summary = "分页查询商品")
     @GetMapping("/page")
     public PageDTO<ItemDTO> queryItemByPage(PageQuery query) {
@@ -33,18 +38,32 @@ public class ItemController {
         return PageDTO.of(result, ItemDTO.class);
     }
 
+    /**
+     * 根据id批量查询商品
+     * @param ids 商品id列表
+     * @return 商品列表
+     */
     @Operation(summary = "根据id批量查询商品")
     @GetMapping
     public List<ItemDTO> queryItemByIds(@RequestParam("ids") List<Long> ids){
         return itemService.queryItemByIds(ids);
     }
 
+    /**
+     * 根据id查询商品
+     * @param id 商品id
+     * @return 商品
+     */
     @Operation(summary = "根据id查询商品")
     @GetMapping("{id}")
     public ItemDTO queryItemById(@PathVariable("id") Long id) {
         return BeanUtils.copyBean(itemService.getById(id), ItemDTO.class);
     }
 
+    /**
+     * 新增商品
+     * @param item 商品
+     */
     @Operation(summary = "新增商品")
     @PostMapping
     public void saveItem(@RequestBody ItemDTO item) {
@@ -52,6 +71,11 @@ public class ItemController {
         itemService.save(BeanUtils.copyBean(item, Item.class));
     }
 
+    /**
+     * 更新商品状态
+     * @param id 商品id
+     * @param status 商品状态
+     */
     @Operation(summary = "更新商品状态")
     @PutMapping("/status/{id}/{status}")
     public void updateItemStatus(@PathVariable("id") Long id, @PathVariable("status") Integer status){
@@ -61,6 +85,10 @@ public class ItemController {
         itemService.updateById(item);
     }
 
+    /**
+     * 更新商品
+     * @param item 商品
+     */
     @Operation(summary = "更新商品")
     @PutMapping
     public void updateItem(@RequestBody ItemDTO item) {
@@ -70,12 +98,20 @@ public class ItemController {
         itemService.updateById(BeanUtils.copyBean(item, Item.class));
     }
 
+    /**
+     * 根据id删除商品
+     * @param id 商品id
+     */
     @Operation(summary = "根据id删除商品")
     @DeleteMapping("{id}")
     public void deleteItemById(@PathVariable("id") Long id) {
         itemService.removeById(id);
     }
 
+    /**
+     * 批量扣减库存
+     * @param items 订单详情列表
+     */
     @Operation(summary = "批量扣减库存")
     @PutMapping("/stock/deduct")
     public void deductStock(@RequestBody List<OrderDetailDTO> items){

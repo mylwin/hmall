@@ -11,12 +11,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * <p>
- * 
- * </p>
- *
- * @author 虎哥
- * @since 2023-05-05
+ * 订单物流
+ * <p>对应数据库表 {@code order_logistics}，与订单一对一，保存物流单号与收货人信息。</p>
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -81,6 +77,4 @@ public class OrderLogistics implements Serializable {
      * 更新时间
      */
     private LocalDateTime updateTime;
-
-
 }

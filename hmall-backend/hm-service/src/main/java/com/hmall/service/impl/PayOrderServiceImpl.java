@@ -22,12 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 
 /**
- * <p>
- * 支付订单 服务实现类
- * </p>
- *
- * @author 虎哥
- * @since 2023-05-16
+ * 支付订单服务实现类
  */
 @Service
 @RequiredArgsConstructor
@@ -37,6 +32,11 @@ public class PayOrderServiceImpl extends ServiceImpl<PayOrderMapper, PayOrder> i
 
     private final IOrderService orderService;
 
+    /**
+     * 申请支付单（幂等）
+     * @param applyDTO 支付申请DTO
+     * @return 支付单id
+     */
     @Override
     public String applyPayOrder(PayApplyDTO applyDTO) {
         // 1.幂等性校验
@@ -45,6 +45,10 @@ public class PayOrderServiceImpl extends ServiceImpl<PayOrderMapper, PayOrder> i
         return payOrder.getId().toString();
     }
 
+    /**
+     * 尝试使用余额支付
+     * @param payOrderFormDTO 支付订单表单DTO
+     */
     @Override
     @Transactional
     public void tryPayOrderByBalance(PayOrderFormDTO payOrderFormDTO) {
@@ -70,6 +74,12 @@ public class PayOrderServiceImpl extends ServiceImpl<PayOrderMapper, PayOrder> i
         orderService.updateById(order);
     }
 
+    /**
+     * 标记支付单支付成功（乐观锁条件更新，仅当支付单仍为未提交/待支付时生效）
+     * @param id 支付单id
+     * @param successTime 支付成功时间
+     * @return 是否更新成功
+     */
     public boolean markPayOrderSuccess(Long id, LocalDateTime successTime) {
         return lambdaUpdate()
                 .set(PayOrder::getStatus, PayStatus.TRADE_SUCCESS.getValue())
@@ -80,7 +90,11 @@ public class PayOrderServiceImpl extends ServiceImpl<PayOrderMapper, PayOrder> i
                 .update();
     }
 
-
+    /**
+     * 校验支付订单的幂等性
+     * @param applyDTO 支付申请DTO
+     * @return 支付订单
+     */
     private PayOrder checkIdempotent(PayApplyDTO applyDTO) {
         // 1.首先查询支付单
         PayOrder oldOrder = queryByBizOrderNo(applyDTO.getBizOrderNo());
@@ -116,6 +130,11 @@ public class PayOrderServiceImpl extends ServiceImpl<PayOrderMapper, PayOrder> i
         return oldOrder;
     }
 
+    /**
+     * 根据支付申请DTO构建支付订单PO
+     * @param payApplyDTO 支付申请DTO
+     * @return 支付订单PO
+     */
     private PayOrder buildPayOrder(PayApplyDTO payApplyDTO) {
         // 1.数据转换
         PayOrder payOrder = BeanUtils.toBean(payApplyDTO, PayOrder.class);
@@ -125,6 +144,12 @@ public class PayOrderServiceImpl extends ServiceImpl<PayOrderMapper, PayOrder> i
         payOrder.setBizUserId(UserContext.getUser());
         return payOrder;
     }
+
+    /**
+     * 根据业务订单号查询支付订单
+     * @param bizOrderNo 业务订单号
+     * @return 支付订单
+     */
     public PayOrder queryByBizOrderNo(Long bizOrderNo) {
         return lambdaQuery()
                 .eq(PayOrder::getBizOrderNo, bizOrderNo)

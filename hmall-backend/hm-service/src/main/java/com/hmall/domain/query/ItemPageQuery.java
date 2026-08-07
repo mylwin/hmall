@@ -5,6 +5,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+/**
+ * 商品分页搜索条件
+ * <p>继承 {@link PageQuery}，在分页基础上扩展关键字、分类、品牌与价格区间过滤。</p>
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Schema(description = "商品分页查询条件")

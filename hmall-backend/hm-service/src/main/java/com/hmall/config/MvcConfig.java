@@ -12,6 +12,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
+/**
+ * MVC 配置，注册登录拦截器，并配置拦截与放行路径
+ */
 @Configuration
 @RequiredArgsConstructor
 @EnableConfigurationProperties(AuthProperties.class)
@@ -25,16 +28,21 @@ public class MvcConfig implements WebMvcConfigurer {
         return new CommonExceptionAdvice();
     }*/
 
+    /**
+     * 注册登录拦截器，配置需校验路径、免登录放行路径以及通用资源路径
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 1.添加拦截器
         LoginInterceptor loginInterceptor = new LoginInterceptor(jwtTool);
         InterceptorRegistration registration = registry.addInterceptor(loginInterceptor);
+
         // 2.配置拦截路径
         List<String> includePaths = authProperties.getIncludePaths();
         if (CollUtil.isNotEmpty(includePaths)) {
             registration.addPathPatterns(includePaths);
         }
+
         // 3.配置放行路径
         List<String> excludePaths = authProperties.getExcludePaths();
         if (CollUtil.isNotEmpty(excludePaths)) {
@@ -49,6 +57,5 @@ public class MvcConfig implements WebMvcConfigurer {
                 "/webjars/**",
                 "/doc.html"
                 );
-
     }
 }

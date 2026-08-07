@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.hmall.common.exception.BadRequestException;
 import lombok.Getter;
 
+/**
+ * 账户状态枚举类
+ */
 @Getter
 public enum UserStatus {
     FROZEN(0, "禁止使用"),
@@ -18,6 +21,12 @@ public enum UserStatus {
         this.desc = desc;
     }
 
+    /**
+     * 根据值获取枚举
+     *
+     * @param value 值
+     * @return 枚举
+     */
     public static UserStatus of(int value) {
         if (value == 0) {
             return FROZEN;

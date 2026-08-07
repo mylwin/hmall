@@ -3,6 +3,9 @@ package com.hmall.domain.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+/**
+ * 收货地址
+ */
 @Data
 @Schema(description = "收货地址实体")
 public class AddressDTO {

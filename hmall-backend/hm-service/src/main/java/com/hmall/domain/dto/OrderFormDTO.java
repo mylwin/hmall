@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * 交易下单表单
+ */
 @Data
 @Schema(description = "交易下单表单实体")
 public class OrderFormDTO {

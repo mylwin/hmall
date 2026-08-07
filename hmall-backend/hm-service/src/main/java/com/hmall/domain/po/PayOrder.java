@@ -11,9 +11,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * <p>
- * 支付订单
- * </p>
+ * 支付单
+ * <p>对应数据库表 {@code pay_order}，保存一次支付请求的渠道、金额、状态与二维码信息。</p>
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -24,7 +23,7 @@ public class PayOrder implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * id
+     * 支付单id
      */
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
@@ -118,6 +117,4 @@ public class PayOrder implements Serializable {
      * 逻辑删除
      */
     private Boolean isDelete;
-
-
 }

@@ -20,41 +20,55 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 /**
- * <p>
- * 用户表 服务实现类
- * </p>
- *
- * @author 虎哥
+ * 用户 服务实现类
  */
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
-
+    /**
+     * 密码加密工具
+     */
     private final PasswordEncoder passwordEncoder;
 
+    /**
+     * JWT工具
+     */
     private final JwtTool jwtTool;
 
+    /**
+     * JWT配置
+     */
     private final JwtProperties jwtProperties;
 
+    /**
+     * 用户登录
+     * @param loginDTO 登录信息
+     * @return 登录结果
+     */
     @Override
     public UserLoginVO login(LoginFormDTO loginDTO) {
         // 1.数据校验
         String username = loginDTO.getUsername();
         String password = loginDTO.getPassword();
+
         // 2.根据用户名或手机号查询
         User user = lambdaQuery().eq(User::getUsername, username).one();
         Assert.notNull(user, "用户名错误");
+
         // 3.校验是否禁用
         if (user.getStatus() == UserStatus.FROZEN) {
             throw new ForbiddenException("用户被冻结");
         }
+
         // 4.校验密码
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new BadRequestException("用户名或密码错误");
         }
+
         // 5.生成TOKEN
         String token = jwtTool.createToken(user.getId(), jwtProperties.getTokenTTL());
+
         // 6.封装VO返回
         UserLoginVO vo = new UserLoginVO();
         vo.setUserId(user.getId());
@@ -64,6 +78,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return vo;
     }
 
+    /**
+     * 扣款
+     * @param pw 用户密码
+     * @param totalFee 扣款金额
+     */
     @Override
     public void deductMoney(String pw, Integer totalFee) {
         log.info("开始扣款");

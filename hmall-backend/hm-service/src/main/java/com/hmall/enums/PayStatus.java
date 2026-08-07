@@ -2,6 +2,9 @@ package com.hmall.enums;
 
 import lombok.Getter;
 
+/**
+ * 支付状态枚举类
+ */
 @Getter
 public enum PayStatus {
     NOT_COMMIT(0, "未提交"),
@@ -18,6 +21,11 @@ public enum PayStatus {
         this.desc = desc;
     }
 
+    /**
+     * 根据值判断是否相等
+     * @param value 值
+     * @return 是否相等
+     */
     public boolean equalsValue(Integer value){
         if (value == null) {
             return false;

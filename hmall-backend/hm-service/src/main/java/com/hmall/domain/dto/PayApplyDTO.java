@@ -7,6 +7,9 @@ import lombok.Data;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * 支付下单表单
+ */
 @Data
 @Builder
 @Schema(description = "支付下单表单实体")

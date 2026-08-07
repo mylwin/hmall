@@ -6,17 +6,12 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * <p>
- * 订单详情表
- * </p>
- *
- * @author 虎哥
- * @since 2023-05-05
+ * 购物车
  */
 @Data
-@Schema(description = "购物车VO实体")
+@Schema(description = "购物车视图")
 public class CartVO {
-    @Schema(description = "购物车条目id ")
+    @Schema(description = "购物车条目id")
     private Long id;
     @Schema(description = "sku商品id")
     private Long itemId;
@@ -38,5 +33,4 @@ public class CartVO {
     private String image;
     @Schema(description = "创建时间")
     private LocalDateTime createTime;
-
 }

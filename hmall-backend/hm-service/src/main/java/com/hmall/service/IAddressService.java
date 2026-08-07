@@ -4,12 +4,8 @@ import com.hmall.domain.po.Address;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
- * <p>
- *  服务类
- * </p>
- *
- * @author 虎哥
- * @since 2023-05-05
+ * 收货地址 服务类
+ * <p>继承 MyBatis-Plus {@link IService}，提供收货地址的通用 CRUD。</p>
  */
 public interface IAddressService extends IService<Address> {
 

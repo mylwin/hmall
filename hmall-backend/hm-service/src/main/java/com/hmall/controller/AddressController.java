@@ -20,11 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * <p>
- *  前端控制器
- * </p>
- *
- * @author 虎哥
+ * 收货地址管理模块
  */
 @RestController
 @RequestMapping("/addresses")
@@ -34,6 +30,11 @@ public class AddressController {
 
     private final IAddressService addressService;
 
+    /**
+     * 根据id查询地址
+     * @param id 地址id
+     * @return 地址信息
+     */
     @Operation(summary = "根据id查询地址")
     @GetMapping("{addressId}")
     public AddressDTO findAddressById(@Parameter(description = "地址id") @PathVariable("addressId") Long id) {
@@ -46,6 +47,11 @@ public class AddressController {
         }
         return BeanUtils.copyBean(address, AddressDTO.class);
     }
+
+    /**
+     * 查询当前用户地址列表
+     * @return 地址列表
+     */
     @Operation(summary = "查询当前用户地址列表")
     @GetMapping
     public List<AddressDTO> findMyAddresses() {

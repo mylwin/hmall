@@ -6,15 +6,15 @@ import com.hmall.domain.po.Item;
 import org.apache.ibatis.annotations.Update;
 
 /**
- * <p>
  * 商品表 Mapper 接口
- * </p>
- *
- * @author 虎哥
- * @since 2023-05-05
  */
 public interface ItemMapper extends BaseMapper<Item> {
 
+    /**
+     * 扣减商品库存
+     *
+     * @param orderDetail 订单明细（含商品id与购买数量）
+     */
     @Update("UPDATE item SET stock = stock - #{num} WHERE id = #{itemId}")
     void updateStock(OrderDetailDTO orderDetail);
 }

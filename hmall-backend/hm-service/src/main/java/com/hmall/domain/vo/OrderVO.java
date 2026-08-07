@@ -5,8 +5,11 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * 订单
+ */
 @Data
-@Schema(description = "订单页面VO")
+@Schema(description = "订单视图")
 public class OrderVO {
     @Schema(description = "订单id")
     private Long id;

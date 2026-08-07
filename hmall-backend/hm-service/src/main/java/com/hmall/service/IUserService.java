@@ -6,16 +6,20 @@ import com.hmall.domain.po.User;
 import com.hmall.domain.vo.UserLoginVO;
 
 /**
- * <p>
- * 用户表 服务类
- * </p>
- *
- * @author 虎哥
- * @since 2023-05-05
+ * 用户 服务类
  */
 public interface IUserService extends IService<User> {
-
+    /**
+     * 用户登录
+     * @param loginFormDTO 登录参数
+     * @return 登录结果
+     */
     UserLoginVO login(LoginFormDTO loginFormDTO);
 
+    /**
+     * 扣减余额
+     * @param pw 支付密码
+     * @param totalFee 支付金额
+     */
     void deductMoney(String pw, Integer totalFee);
 }

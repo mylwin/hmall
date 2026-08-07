@@ -11,6 +11,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * 支付相关接口
+ */
 @Tag(name = "支付相关接口")
 @RestController
 @RequestMapping("pay-orders")
@@ -19,6 +22,11 @@ public class PayController {
 
     private final IPayOrderService payOrderService;
 
+    /**
+     * 生成支付单
+     * @param applyDTO 支付申请参数
+     * @return 支付单编号
+     */
     @Operation(summary = "生成支付单")
     @PostMapping
     public String applyPayOrder(@RequestBody PayApplyDTO applyDTO){
@@ -29,6 +37,11 @@ public class PayController {
         return payOrderService.applyPayOrder(applyDTO);
     }
 
+    /**
+     * 尝试基于用户余额支付
+     * @param id 支付单id
+     * @param payOrderFormDTO 支付订单参数
+     */
     @Operation(summary = "尝试基于用户余额支付")
     @Parameter(name = "id", description = "支付单id")
     @PostMapping("{id}")

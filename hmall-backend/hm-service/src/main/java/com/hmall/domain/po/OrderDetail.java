@@ -10,12 +10,8 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
- * <p>
- * 订单详情表
- * </p>
- *
- * @author 虎哥
- * @since 2023-05-05
+ * 订单详情
+ * <p>对应数据库表 {@code order_detail}，记录一笔订单中每个商品条目的购买快照。</p>
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -75,6 +71,4 @@ public class OrderDetail implements Serializable {
      * 更新时间
      */
     private LocalDateTime updateTime;
-
-
 }

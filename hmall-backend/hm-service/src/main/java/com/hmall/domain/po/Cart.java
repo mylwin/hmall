@@ -10,12 +10,8 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
- * <p>
- * 订单详情表
- * </p>
- *
- * @author 虎哥
- * @since 2023-05-05
+ * 购物车条目
+ * <p>对应数据库表 {@code cart}，记录用户加入购物车的商品快照。</p>
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -75,6 +71,4 @@ public class Cart implements Serializable {
      * 更新时间
      */
     private LocalDateTime updateTime;
-
-
 }

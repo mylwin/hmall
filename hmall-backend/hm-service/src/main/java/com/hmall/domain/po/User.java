@@ -12,12 +12,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * <p>
- * 用户表
- * </p>
- *
- * @author 虎哥
- * @since 2023-05-05
+ * 用户
+ * <p>对应数据库表 {@code user}，保存用户账号、密码、余额与状态信息。</p>
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -50,10 +46,13 @@ public class User implements Serializable {
      */
     private LocalDateTime createTime;
 
+    /**
+     * 更新时间
+     */
     private LocalDateTime updateTime;
 
     /**
-     * 使用状态（1正常 2冻结）
+     * 使用状态（0冻结 1正常），见 {@link UserStatus}
      */
     private UserStatus status;
 
@@ -61,6 +60,4 @@ public class User implements Serializable {
      * 账户余额
      */
     private Integer balance;
-
-
 }

@@ -6,6 +6,9 @@ import lombok.Data;
 
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * 支付确认表单
+ */
 @Data
 @Builder
 @Schema(description = "支付确认表单实体")

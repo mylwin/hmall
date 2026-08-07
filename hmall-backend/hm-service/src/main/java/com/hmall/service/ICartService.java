@@ -9,18 +9,24 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * <p>
- * 订单详情表 服务类
- * </p>
- *
- * @author 虎哥
- * @since 2023-05-05
+ * 购物车相关接口
  */
 public interface ICartService extends IService<Cart> {
-
+    /**
+     * 添加商品到购物车
+     * @param cartFormDTO 购物车表单数据
+     */
     void addItem2Cart(CartFormDTO cartFormDTO);
 
+    /**
+     * 查询当前用户购物车列表
+     * @return 购物车列表
+     */
     List<CartVO> queryMyCarts();
 
+    /**
+     * 根据商品id集合查询购物车列表
+     * @param itemIds 商品id集合
+     */
     void removeByItemIds(Collection<Long> itemIds);
 }

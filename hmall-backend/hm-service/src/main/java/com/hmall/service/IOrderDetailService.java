@@ -4,12 +4,8 @@ import com.hmall.domain.po.OrderDetail;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
- * <p>
- * 订单详情表 服务类
- * </p>
- *
- * @author 虎哥
- * @since 2023-05-05
+ * 订单详情 服务类
+ * <p>继承 MyBatis-Plus {@link IService}，提供订单详情的通用 CRUD。</p>
  */
 public interface IOrderDetailService extends IService<OrderDetail> {
 

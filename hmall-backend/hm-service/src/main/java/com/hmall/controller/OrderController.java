@@ -9,9 +9,11 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * 订单管理
+ */
 @Tag(name = "订单管理接口")
 @RestController
 @RequestMapping("/orders")
@@ -19,18 +21,32 @@ import org.springframework.web.bind.annotation.*;
 public class OrderController {
     private final IOrderService orderService;
 
+    /**
+     * 根据id查询订单
+     * @param orderId 订单id
+     * @return 订单详情
+     */
     @Operation(summary = "根据id查询订单")
     @GetMapping("{id}")
-    public OrderVO queryOrderById(@Param ("订单id")@PathVariable("id") Long orderId) {
+    public OrderVO queryOrderById(@Parameter(name = "id", description = "订单id") @PathVariable("id") Long orderId) {
         return BeanUtils.copyBean(orderService.getById(orderId), OrderVO.class);
     }
 
+    /**
+     * 创建订单
+     * @param orderFormDTO 订单信息
+     * @return 订单编号
+     */
     @Operation(summary = "创建订单")
     @PostMapping
     public Long createOrder(@RequestBody OrderFormDTO orderFormDTO){
         return orderService.createOrder(orderFormDTO);
     }
 
+    /**
+     * 标记订单已支付
+     * @param orderId 订单id
+     */
     @Operation(summary = "标记订单已支付")
     @Parameter(name = "orderId", description = "订单id", in = ParameterIn.PATH)
     @PutMapping("/{orderId}")
