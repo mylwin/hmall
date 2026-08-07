@@ -16,16 +16,24 @@ import jakarta.servlet.ServletException;
 import java.net.BindException;
 import java.util.stream.Collectors;
 
+/**
+ * 全局异常处理器，统一捕获并处理各类异常，转换为统一的错误响应
+ */
 @RestControllerAdvice
 @Slf4j
 public class CommonExceptionAdvice {
-
+    /**
+     * 捕获数据库操作异常
+     */
     @ExceptionHandler(DbException.class)
     public Object handleDbException(DbException e) {
         log.error("mysql数据库操作异常 -> ", e);
         return processResponse(e);
     }
 
+    /**
+     * 捕获通用自定义异常（含各类业务异常）
+     */
     @ExceptionHandler(CommonException.class)
     public Object handleBadRequestException(CommonException e) {
         log.error("自定义异常 -> {} , 异常原因：{}  ",e.getClass().getName(), e.getMessage());
@@ -33,6 +41,9 @@ public class CommonExceptionAdvice {
         return processResponse(e);
     }
 
+    /**
+     * 捕获请求参数校验异常（@Valid 校验失败）
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Object handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         String msg = e.getBindingResult().getAllErrors()
@@ -42,6 +53,10 @@ public class CommonExceptionAdvice {
         log.debug("", e);
         return processResponse(new BadRequestException(msg));
     }
+
+    /**
+     * 捕获请求参数绑定异常（参数类型/格式不符）
+     */
     @ExceptionHandler(BindException.class)
     public Object handleBindException(BindException e) {
         log.error("请求参数绑定异常 ->BindException， {}", e.getMessage());
@@ -49,6 +64,9 @@ public class CommonExceptionAdvice {
         return processResponse(new BadRequestException("请求参数格式错误"));
     }
 
+    /**
+     * 捕获 Servlet 异常（如请求参数处理失败）
+     */
     @ExceptionHandler(ServletException.class)
     public Object handleServletException(ServletException e) {
         log.error("参数异常 -> ServletException，{}", e.getMessage());
@@ -56,12 +74,18 @@ public class CommonExceptionAdvice {
         return processResponse(new BadRequestException("请求参数处理异常"));
     }
 
+    /**
+     * 兜底异常处理，捕获所有未匹配的异常，返回服务器内部异常
+     */
     @ExceptionHandler(Exception.class)
     public Object handleRuntimeException(Exception e) {
         log.error("其他异常 uri : {} -> ", WebUtils.getRequest().getRequestURI(), e);
         return processResponse(new CommonException("服务器内部异常", 500));
     }
 
+    /**
+     * 将异常转换为统一的错误响应，HTTP 状态码与异常 code 保持一致
+     */
     private ResponseEntity<R<Void>> processResponse(CommonException e){
         return ResponseEntity.status(e.getCode()).body(R.error(e));
     }

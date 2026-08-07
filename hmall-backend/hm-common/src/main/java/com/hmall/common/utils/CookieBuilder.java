@@ -13,20 +13,56 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * cookie工具类
+ */
 @Slf4j
 @Data
 @Accessors(chain = true, fluent = true)
 public class CookieBuilder {
+    /**
+     * 编码方式
+     */
     private Charset charset = StandardCharsets.UTF_8;
+    /**
+     * cookie有效期，单位秒。-1表示永久有效
+     */
     private int maxAge = -1;
+    /**
+     * cookie路径
+     */
     private String path = "/";
+    /**
+     * 是否httpOnly
+     */
     private boolean httpOnly;
+    /**
+     * cookie名
+     */
     private String name;
+    /**
+     * cookie值
+     */
     private String value;
+    /**
+     * cookie域名
+     */
     private String domain;
+    /**
+     * request
+     */
     private final HttpServletRequest request;
+    /**
+     * response
+     */
     private final HttpServletResponse response;
 
+    /**
+     * 使用 request 与 response 构造 Cookie 构建器
+     *
+     * @param request  请求，用于读取域名，可为 null
+     * @param response 响应，用于写入 Cookie，为 null 时 build() 不执行写入
+     */
     public CookieBuilder(HttpServletRequest request, HttpServletResponse response) {
         this.request = request;
         this.response = response;

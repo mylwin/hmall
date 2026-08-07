@@ -14,9 +14,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.Collection;
 import java.util.Map;
 
+/**
+ * Web 工具类，提供请求/响应的快捷获取与参数解析等能力
+ */
 @Slf4j
 public class WebUtils {
-
     /**
      * 获取ServletRequestAttributes
      *
@@ -64,6 +66,12 @@ public class WebUtils {
         return getRequest().getHeader(headerName);
     }
 
+    /**
+     * 设置response header中的内容
+     *
+     * @param key   key
+     * @param value value
+     */
     public static void setResponseHeader(String key, String value){
         HttpServletResponse response = getResponse();
         if (response == null) {
@@ -72,6 +80,11 @@ public class WebUtils {
         response.setHeader(key, value);
     }
 
+    /**
+     * 判断response是否成功
+     *
+     * @return 是否成功
+     */
     public static boolean isSuccess() {
         HttpServletResponse response = getResponse();
         return response != null && response.getStatus() < 300;
@@ -81,7 +94,7 @@ public class WebUtils {
      * 获取请求地址中的请求参数组装成 key1=value1&key2=value2
      * 如果key对应多个值，中间使用逗号隔开例如 key1对应value1，key2对应value2，value3， key1=value1&key2=value2,value3
      *
-     * @param request
+     * @param request 请求
      * @return 返回拼接字符串
      */
     public static String getParameters(HttpServletRequest request) {
@@ -93,8 +106,8 @@ public class WebUtils {
      * 获取请求地址中的请求参数组装成 key1=value1&key2=value2
      * 如果key对应多个值，中间使用逗号隔开例如 key1对应value1，key2对应value2，value3， key1=value1&key2=value2,value3
      *
-     * @param queries
-     * @return
+     * @param queries 查询参数
+     * @return 返回拼接字符串
      */
     public  static <T> String getParameters(final Map<String, T> queries) {
         StringBuilder buffer = new StringBuilder();
@@ -108,14 +121,14 @@ public class WebUtils {
                 ).append("&");
             }
         }
-        return buffer.length() > 0 ? buffer.substring(0, buffer.length() - 1) : StrUtil.EMPTY;
+        return !buffer.isEmpty() ? buffer.substring(0, buffer.length() - 1) : StrUtil.EMPTY;
     }
 
     /**
      * 获取请求url中的uri
      *
-     * @param url
-     * @return
+     * @param url 请求地址
+     * @return uri
      */
     public static String getUri(String url){
         if(StringUtils.isEmpty(url)) {
@@ -137,6 +150,11 @@ public class WebUtils {
         return uri.substring(uri.indexOf("/"), endIndex);
     }
 
+    /**
+     * 获取请求ip
+     *
+     * @return ip
+     */
     public static String getRemoteAddr() {
         HttpServletRequest request = getRequest();
         if (request == null) {
@@ -145,6 +163,11 @@ public class WebUtils {
         return request.getRemoteAddr();
     }
 
+    /**
+     * 获取cookie构建器
+     *
+     * @return cookie构建器
+     */
     public static CookieBuilder cookieBuilder(){
         return new CookieBuilder(getRequest(), getResponse());
     }

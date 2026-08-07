@@ -1,6 +1,13 @@
 package com.hmall.common.utils;
 
+/**
+ * 用户信息工具类
+ * <p>基于 ThreadLocal 保存当前登录用户 id，实现请求线程内的数据隔离。</p>
+ */
 public class UserContext {
+    /**
+     * 线程本地变量，保存当前线程登录用户 id
+     */
     private static final ThreadLocal<Long> tl = new ThreadLocal<>();
 
     /**
