@@ -1,0 +1,33 @@
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Java / Maven 构建产物
+**/target/
+*.class
+*.jar
+*.war
+*.ear
+
+# 日志文件
+logs/
+*.log
+*.pid
+*.dumpstream
+
+# nginx 运行时文件
+hmall-nginx/logs/
+hmall-nginx/temp/
+
+# Claude Code 本地配置
+.claude/settings.local.json
+
+# 系统与临时文件
+*.tmp
+*.swp
+*~
