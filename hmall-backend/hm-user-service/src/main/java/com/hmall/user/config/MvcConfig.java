@@ -1,0 +1,61 @@
+package com.hmall.user.config;
+
+import cn.hutool.core.collection.CollUtil;
+import com.hmall.user.interceptor.LoginInterceptor;
+import com.hmall.user.utils.JwtTool;
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
+
+/**
+ * MVC 配置，注册登录拦截器，并配置拦截与放行路径
+ */
+@Configuration
+@RequiredArgsConstructor
+@EnableConfigurationProperties(AuthProperties.class)
+public class MvcConfig implements WebMvcConfigurer {
+
+   private final JwtTool jwtTool;
+   private final AuthProperties authProperties;
+
+/*    @Bean
+    public CommonExceptionAdvice commonExceptionAdvice(){
+        return new CommonExceptionAdvice();
+    }*/
+
+    /**
+     * 注册登录拦截器，配置需校验路径、免登录放行路径以及通用资源路径
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        // 1.添加拦截器
+        LoginInterceptor loginInterceptor = new LoginInterceptor(jwtTool);
+        InterceptorRegistration registration = registry.addInterceptor(loginInterceptor);
+
+        // 2.配置拦截路径
+        List<String> includePaths = authProperties.getIncludePaths();
+        if (CollUtil.isNotEmpty(includePaths)) {
+            registration.addPathPatterns(includePaths);
+        }
+
+        // 3.配置放行路径
+        List<String> excludePaths = authProperties.getExcludePaths();
+        if (CollUtil.isNotEmpty(excludePaths)) {
+            registration.excludePathPatterns(excludePaths);
+        }
+        registration.excludePathPatterns(
+                "/error",
+                "/favicon.ico",
+                "/v2/**",
+                "/v3/**",
+                "/swagger-resources/**",
+                "/webjars/**",
+                "/doc.html"
+                );
+    }
+}

@@ -1,15 +1,18 @@
 server:
-  port: 8080
+  port: 8085
 spring:
   application:
-    name: hm-service
+    name: hm-trade-service
   profiles:
     active: dev
+  cloud:
+    nacos:
+      server-addr: ${hm.nacos.addr}
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
   datasource:
-    url: jdbc:mysql://${hm.db.host}:3306/hmall?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://${hm.db.host}:3306/hm-trade?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: ${hm.db.pw}
