@@ -31,6 +31,6 @@ public interface ItemClient {
      * 扣减库存
      * @param items 订单详情列表
      */
-    @PutMapping("/stock/deduct")
+    @PutMapping("/items/stock/deduct")
     void deductStock(@RequestBody List<OrderDetailDTO> items);
 }

@@ -17,6 +17,6 @@ public interface CartClient {
      * 根据商品id集合批量删除购物车条目
      * @param itemIds 商品id集合
      */
-    @DeleteMapping
-    void removeByItemIds(@RequestParam("ids") Collection<Long> itemIds);
+    @DeleteMapping("/carts")
+    void deleteCartItemByIds(@RequestParam("ids") Collection<Long> itemIds);
 }
