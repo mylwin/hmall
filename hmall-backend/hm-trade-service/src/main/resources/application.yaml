@@ -33,8 +33,8 @@ logging:
 knife4j:
   enable: true
   openapi:
-    title: 黑马商城接口文档
-    description: "黑马商城接口文档"
+    title: 黑马商城交易服务接口文档
+    description: "黑马商城交易服务接口文档"
     email: 2232802210@qq.com
     concat: mylwin
     url: https://www.itcast.cn
