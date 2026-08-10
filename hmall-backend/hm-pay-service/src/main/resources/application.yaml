@@ -33,8 +33,8 @@ logging:
 knife4j:
   enable: true
   openapi:
-    title: 黑马商城接口文档
-    description: "黑马商城接口文档"
+    title: 黑马商城支付服务接口文档
+    description: "黑马商城支付服务接口文档"
     email: 2232802210@qq.com
     concat: mylwin
     url: https://www.itcast.cn
@@ -44,17 +44,4 @@ knife4j:
         group-name: default
         api-rule: package
         api-rule-resources:
-          - com.hmall.controller
-hm:
-  jwt:
-    location: classpath:hmall.jks
-    alias: hmall
-    password: hmall123
-    tokenTTL: 30m
-  auth:
-    excludePaths:
-      - /search/**
-      - /users/login
-      - /items/**
-      - /hi
-# keytool -genkeypair -alias hmall -keyalg RSA -keypass hmall123 -keystore hmall.jks -storepass hmall123
+          - com.hmall.pay.controller
