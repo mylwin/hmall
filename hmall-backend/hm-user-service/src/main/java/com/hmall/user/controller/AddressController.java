@@ -4,6 +4,7 @@ package com.hmall.user.controller;
 import com.hmall.common.exception.BadRequestException;
 import com.hmall.common.utils.BeanUtils;
 import com.hmall.common.utils.CollUtils;
+import com.hmall.common.utils.UserContext;
 import com.hmall.user.domain.dto.AddressDTO;
 import com.hmall.user.domain.po.Address;
 import com.hmall.user.service.IAddressService;
@@ -40,9 +41,7 @@ public class AddressController {
         // 1.根据id查询
         Address address = addressService.getById(id);
         // 2.判断当前用户
-        //TODO
-        /*Long userId = UserContext.getUser();*/
-        Long userId = 1L;
+        Long userId = UserContext.getUser();
         if(!address.getUserId().equals(userId)){
             throw new BadRequestException("地址不属于当前登录用户");
         }
@@ -57,9 +56,7 @@ public class AddressController {
     @GetMapping
     public List<AddressDTO> findMyAddresses() {
         // 1.查询列表
-        //TODO
-        /*List<Address> list = addressService.query().eq("user_id", UserContext.getUser()).list();*/
-        List<Address> list = addressService.query().eq("user_id", 1L).list();
+        List<Address> list = addressService.query().eq("user_id", UserContext.getUser()).list();
         // 2.判空
         if (CollUtils.isEmpty(list)) {
             return CollUtils.emptyList();

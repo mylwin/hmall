@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Hutool 工具类测试
+ */
 public class HutoolTest {
 
     @Test

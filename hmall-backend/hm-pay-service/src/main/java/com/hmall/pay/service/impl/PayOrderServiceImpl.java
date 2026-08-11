@@ -7,6 +7,7 @@ import com.hmall.api.client.TradeClient;
 import com.hmall.api.client.UserClient;
 import com.hmall.common.exception.BizIllegalException;
 import com.hmall.common.utils.BeanUtils;
+import com.hmall.common.utils.UserContext;
 import com.hmall.pay.domain.dto.PayApplyDTO;
 import com.hmall.pay.domain.dto.PayOrderFormDTO;
 import com.hmall.pay.domain.po.PayOrder;
@@ -138,9 +139,7 @@ public class PayOrderServiceImpl extends ServiceImpl<PayOrderMapper, PayOrder> i
         // 2.初始化数据
         payOrder.setPayOverTime(LocalDateTime.now().plusMinutes(120L));
         payOrder.setStatus(PayStatus.WAIT_BUYER_PAY.getValue());
-        //TODO
-        /*payOrder.setBizUserId(UserContext.getUser());*/
-        payOrder.setBizUserId(1L);
+        payOrder.setBizUserId(UserContext.getUser());
         return payOrder;
     }
 

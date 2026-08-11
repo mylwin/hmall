@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * 商品管理相关接口
+ */
 @Tag(name = "商品管理相关接口")
 @RestController
 @RequestMapping("/items")

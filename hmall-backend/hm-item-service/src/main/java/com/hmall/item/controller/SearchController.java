@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 搜索相关接口
+ */
 @Tag(name = "搜索相关接口")
 @RestController
 @RequestMapping("/search")

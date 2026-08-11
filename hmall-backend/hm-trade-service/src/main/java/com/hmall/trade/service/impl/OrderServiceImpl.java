@@ -7,6 +7,7 @@ import com.hmall.api.dto.ItemDTO;
 import com.hmall.api.dto.OrderDetailDTO;
 import com.hmall.api.dto.OrderFormDTO;
 import com.hmall.common.exception.BadRequestException;
+import com.hmall.common.utils.UserContext;
 import com.hmall.trade.domain.po.Order;
 import com.hmall.trade.domain.po.OrderDetail;
 import com.hmall.trade.mapper.OrderMapper;
@@ -63,9 +64,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         order.setTotalFee(total);
         // 1.5.其它属性
         order.setPaymentType(orderFormDTO.getPaymentType());
-        //TODO
-        /*order.setUserId(UserContext.getUser());*/
-        order.setUserId(1L);
+        order.setUserId(UserContext.getUser());
         order.setStatus(1);
         // 1.6.将Order写入数据库order表中
         save(order);
